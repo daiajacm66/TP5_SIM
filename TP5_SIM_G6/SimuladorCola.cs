@@ -16,5 +16,13 @@ namespace TP5_SIM_G6
         {
             InitializeComponent();
         }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            dgvSimulacion.Rows.Clear();
+            txtPorcentajeUtilizacion.Text = "";
+            txtRecaudacionTotal.Text = "";
+
+        }
     }
 }
