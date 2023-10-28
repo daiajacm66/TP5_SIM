@@ -9,9 +9,9 @@ namespace TP5_SIM_G6.Entidades
     public class Sector
     {
         #region Atributos
-        private int id { get; set; }
-        private string estado { get; set; }
-        private double finOcupacion { get; set; }
+        public int id { get; set; }
+        public string estado { get; set; }
+        public double finOcupacion { get; set; }
         #endregion
 
         #region Constructores

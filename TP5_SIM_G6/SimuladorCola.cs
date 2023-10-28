@@ -31,6 +31,14 @@ namespace TP5_SIM_G6
 
         private void btnIniciar_Click(object sender, EventArgs e)
         {
+            List<double> probTipoAuto = new List<double> { double.Parse(nudProbPequeño.Text.ToString()), double.Parse(nudProbGrande.Text.ToString()), double.Parse(nudProbUtilitario.Text.ToString()) };
+            List<string> tipoAuto = new List<string> { "Pequeño", "Grande", "Utilitario" };
+            List<double> preciosTipoAuto = new List<double> { 300, 500, 1000 };
+            List<double> probPermanencia = new List<double> { double.Parse(nudProb1hora.Text.ToString()), double.Parse(nudProb2horas.Text.ToString()), double.Parse(nudProb3horas.Text.ToString()), double.Parse(nudProb4horas.Text.ToString()) };
+            List<double> tiempPerm = new List<double> { 1, 2, 3, 4 };
+
+            TablasProbabilidades prob = new TablasProbabilidades(probTipoAuto, tipoAuto, preciosTipoAuto, probPermanencia, tiempPerm);
+
             //Simulador sim = new Simulador();
             if (!validarInputs())
             {
@@ -44,12 +52,12 @@ namespace TP5_SIM_G6
             int tiempoMaximo = Convert.ToInt32(this.nudX.Text);
             int cantMaxima = Convert.ToInt32(this.nudCantFilas.Text);
             int desde = Convert.ToInt32(this.nudDesde.Text);
-            int hasta = desde + cantMaxima;
+            int hasta = Convert.ToInt32(this.nudHasta.Text);
             
             if (hasta > cantMaxima)
                 hasta = cantMaxima;
             //this.txtTo.Text = to.ToString();
-            GeneradorAleatorio generadorAlea = new GeneradorAleatorio(Convert.ToDouble(this.nudIndiceLlegadas.Text);
+            GeneradorAleatorio generadorAlea = new GeneradorAleatorio(Convert.ToDouble(this.nudIndiceLlegadas.Text));
             Random r = new Random();
             double rnd = r.NextDouble();
             double proxAutomovil = generadorAlea.Generate(rnd);
@@ -60,7 +68,7 @@ namespace TP5_SIM_G6
                 reloj = clock,
                 rndLlegadaAutomovil = rnd,
                 tiempoLlegadaAutomovil = proxAutomovil,
-                tiempoProxLlegada = clock + proxAutomovil,
+                tiempoProximaLlegada = clock + proxAutomovil,
                 contadorSectoresOcupados = 0,
                 tiempoOcupacionAC = 0,
                 sector1 = new Sector(1, "Libre"),
@@ -71,12 +79,12 @@ namespace TP5_SIM_G6
                 sector6 = new Sector(6, "Libre"),
                 sector7 = new Sector(7, "Libre"),
                 sector8 = new Sector(8, "Libre"),
-                caja = Caja.getCaja(1, "Libre", 0, 0, 0, 0, new List<Automovil>()),
+                caja = new Caja(1, "Libre", 0, 0, 0, 0, new List<Automovil>()),
                 clientes = new List<Automovil>()
 
             };
 
-            Simulador simulador = new Simulador();
+            Simulador simulador = new Simulador(Convert.ToDouble(this.nudIndiceLlegadas.Text), Convert.ToDouble(this.nudTiempoCobro.Text));
             IList<VectorEstadoMostrar> filasAMostrar = simulador.simulate(cantMaxima, tiempoMaximo, desde, initialize);
 
             //this.txtMaxTimeEET.Text = truncar(filasAMostrar[filasAMostrar.Count - 1].maxEETTime).ToString();

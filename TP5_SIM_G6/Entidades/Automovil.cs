@@ -12,7 +12,12 @@ namespace TP5_SIM_G6.Entidades
         public int id { get; set; }
         public string estado { get; set; }
         public string tipoAuto { get; set; }
-        public float tiempoPermanencia { get; set; }
+        public double tiempoPermanencia { get; set; }
+
+        public double tiempoLlegada { get; set; }
+        public double tiempoFinPermanencia { get; set; }
+        public double tiempoFinCobro { get; set; }
+
         public static int cantidad { get; set; }
         #endregion
     }
