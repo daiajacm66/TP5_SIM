@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TP5_SIM_G6.Logica;
 
 namespace TP5_SIM_G6
 {
@@ -23,6 +24,11 @@ namespace TP5_SIM_G6
             txtPorcentajeUtilizacion.Text = "";
             txtRecaudacionTotal.Text = "";
 
+        }
+
+        private void btnIniciar_Click(object sender, EventArgs e)
+        {
+            Simulador sim = new Simulador();
         }
     }
 }
