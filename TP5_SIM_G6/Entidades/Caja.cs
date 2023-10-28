@@ -11,26 +11,26 @@ namespace TP5_SIM_G6.Entidades
         #region Atributos
         private int id { get; set; }
         private string estado { get; set; }
-        private double monto_cobrar { get; set; }
-        private double monto_acumulado { get; set; }
-        private DateTime tiempo_inicio { get; set; }
-        private DateTime tiempo_fin { get; set; }
+        private double montoCobrar { get; set; }
+        private double montoAC { get; set; }
+        private double tiempoInicio { get; set; }
+        private double tiempoFin { get; set; }
         private List<Automovil> cola { get; set; }
         private Caja _instancia { get; set; }
         #endregion
 
-        private Caja(int id, string estado, double monto_cobrar, double monto_acumulado, DateTime tiempo_inicio, DateTime tiempo_fin, List<Automovil> cola)
+        private Caja(int id, string estado, double monto_cobrar, double monto_acumulado, double tiempo_inicio, double tiempo_fin, List<Automovil> cola)
         {
             this.id = id;
             this.estado = estado;
-            this.monto_cobrar = monto_cobrar;
-            this.monto_acumulado = monto_acumulado;
-            this.tiempo_inicio = tiempo_inicio;
-            this.tiempo_fin = tiempo_fin;
+            this.montoCobrar = monto_cobrar;
+            this.montoAC = monto_acumulado;
+            this.tiempoInicio = tiempo_inicio;
+            this.tiempoFin = tiempo_fin;
             this.cola = cola;
         }
 
-        public Caja getCaja(int id, string estado, double monto_cobrar, double monto_acumulado, DateTime tiempo_inicio, DateTime tiempo_fin, List<Automovil> cola)
+        public static Caja getCaja(int id, string estado, double monto_cobrar, double monto_acumulado, double tiempo_inicio, double tiempo_fin, List<Automovil> cola)
         {
             if (this._instancia == null)
             {

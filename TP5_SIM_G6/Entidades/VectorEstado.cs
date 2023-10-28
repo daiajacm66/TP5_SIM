@@ -31,5 +31,17 @@ namespace TP5_SIM_G6.Entidades
         public Automovil Automovil8 { get; set; }
         public Automovil Automovil9 { get; set; }
         #endregion
+
+       // Variables estadísticas
+        public int cantAvionesAyDInst { get; set; }
+        public double porcAvionesAyDInst { get; set; }
+        public double maxEEVTime { get; set; }
+        public double maxEETTime { get; set; }
+        public double acumEEVTime { get; set; }
+        public double acumEETTime { get; set; }
+        public double avgEEVTime { get; set; }
+        public double avgEETTime { get; set; }
+
+        public List<Automovil> clientes { get; set; }
     }
 }

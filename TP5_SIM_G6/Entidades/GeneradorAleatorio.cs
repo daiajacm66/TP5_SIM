@@ -10,11 +10,16 @@ namespace TP5_SIM_G6.Entidades
     {
         //private double rnd { get; set; }
         private double nro_generado { get; set; }
-        private double lambda { get; set; }
+        private double media { get; set; }
+
+        public GeneradorAleatorio(double media)
+        {
+            this.media = media;
+        }
 
         public double Generate(double rnd)
         {
-            this.nro_generado = (-1 / this.lambda) * Math.Log(1 - rnd);
+            this.nro_generado = (-this.media) * Math.Log(1 - rnd);
             return this.nro_generado;
         }
     }
