@@ -10,11 +10,19 @@ using System.Windows.Forms;
 
 namespace TP5_SIM_G6
 {
-    public partial class Form1 : Form
+    public partial class SimuladorCola : Form
     {
-        public Form1()
+        public SimuladorCola()
         {
             InitializeComponent();
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+            dgvSimulacion.Rows.Clear();
+            txtPorcentajeUtilizacion.Text = "";
+            txtRecaudacionTotal.Text = "";
+
         }
     }
 }

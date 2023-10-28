@@ -1,0 +1,12 @@
+C:\Users\Mari\Documents\GitHub\TP5_SIM\TP5_SIM_G6\obj\Debug\TP5_SIM_G6.csproj.AssemblyReference.cache
+C:\Users\Mari\Documents\GitHub\TP5_SIM\TP5_SIM_G6\obj\Debug\TP5_SIM_G6.csproj.SuggestedBindingRedirects.cache
+C:\Users\Mari\Documents\GitHub\TP5_SIM\TP5_SIM_G6\obj\Debug\TP5_SIM_G6.Inicio.resources
+C:\Users\Mari\Documents\GitHub\TP5_SIM\TP5_SIM_G6\obj\Debug\TP5_SIM_G6.Properties.Resources.resources
+C:\Users\Mari\Documents\GitHub\TP5_SIM\TP5_SIM_G6\obj\Debug\TP5_SIM_G6.csproj.GenerateResource.cache
+C:\Users\Mari\Documents\GitHub\TP5_SIM\TP5_SIM_G6\obj\Debug\TP5_SIM_G6.csproj.CoreCompileInputs.cache
+C:\Users\Mari\Documents\GitHub\TP5_SIM\TP5_SIM_G6\bin\Debug\TP5_SIM_G6.exe.config
+C:\Users\Mari\Documents\GitHub\TP5_SIM\TP5_SIM_G6\bin\Debug\TP5_SIM_G6.exe
+C:\Users\Mari\Documents\GitHub\TP5_SIM\TP5_SIM_G6\bin\Debug\TP5_SIM_G6.pdb
+C:\Users\Mari\Documents\GitHub\TP5_SIM\TP5_SIM_G6\obj\Debug\TP5_SIM_G6.exe
+C:\Users\Mari\Documents\GitHub\TP5_SIM\TP5_SIM_G6\obj\Debug\TP5_SIM_G6.pdb
+C:\Users\Mari\Documents\GitHub\TP5_SIM\TP5_SIM_G6\obj\Debug\TP5_SIM_G6.SimuladorCola.resources
