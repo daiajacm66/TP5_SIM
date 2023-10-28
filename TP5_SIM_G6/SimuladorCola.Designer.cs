@@ -58,14 +58,6 @@
             this.nudIndiceLlegadas = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
             this.dgvSimulacion = new System.Windows.Forms.DataGridView();
-            this.btnLimpiar = new System.Windows.Forms.Button();
-            this.btnIniciar = new System.Windows.Forms.Button();
-            this.pgbSimulacion = new System.Windows.Forms.ProgressBar();
-            this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.txtRecaudacionTotal = new System.Windows.Forms.TextBox();
-            this.txtPorcentajeUtilizacion = new System.Windows.Forms.TextBox();
             this.evento = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.reloj = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.RNDLlegadas = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -100,6 +92,14 @@
             this.monto = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.montoAC = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.colaCobro = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.btnLimpiar = new System.Windows.Forms.Button();
+            this.btnIniciar = new System.Windows.Forms.Button();
+            this.pgbSimulacion = new System.Windows.Forms.ProgressBar();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.txtPorcentajeUtilizacion = new System.Windows.Forms.TextBox();
+            this.txtRecaudacionTotal = new System.Windows.Forms.TextBox();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudCantFilas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDesde)).BeginInit();
@@ -130,9 +130,9 @@
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Font = new System.Drawing.Font("Montserrat Medium", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.Location = new System.Drawing.Point(9, 17);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox1.Size = new System.Drawing.Size(339, 159);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
@@ -142,7 +142,7 @@
             // 
             this.nudCantFilas.Font = new System.Drawing.Font("Montserrat Medium", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudCantFilas.Location = new System.Drawing.Point(253, 102);
-            this.nudCantFilas.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.nudCantFilas.Margin = new System.Windows.Forms.Padding(2);
             this.nudCantFilas.Maximum = new decimal(new int[] {
             100000,
             0,
@@ -177,7 +177,7 @@
             // 
             this.nudDesde.Font = new System.Drawing.Font("Montserrat Medium", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudDesde.Location = new System.Drawing.Point(253, 68);
-            this.nudDesde.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.nudDesde.Margin = new System.Windows.Forms.Padding(2);
             this.nudDesde.Maximum = new decimal(new int[] {
             100000,
             0,
@@ -212,7 +212,7 @@
             // 
             this.nudX.Font = new System.Drawing.Font("Montserrat Medium", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nudX.Location = new System.Drawing.Point(253, 28);
-            this.nudX.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.nudX.Margin = new System.Windows.Forms.Padding(2);
             this.nudX.Maximum = new decimal(new int[] {
             10000000,
             0,
@@ -253,9 +253,9 @@
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Font = new System.Drawing.Font("Montserrat Medium", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox2.Location = new System.Drawing.Point(371, 17);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox2.Size = new System.Drawing.Size(1045, 185);
             this.groupBox2.TabIndex = 6;
             this.groupBox2.TabStop = false;
@@ -273,9 +273,9 @@
             this.groupBox3.Controls.Add(this.nudProb1hora);
             this.groupBox3.Font = new System.Drawing.Font("Montserrat Medium", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox3.Location = new System.Drawing.Point(610, 23);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox3.Size = new System.Drawing.Size(376, 136);
             this.groupBox3.TabIndex = 7;
             this.groupBox3.TabStop = false;
@@ -329,7 +329,7 @@
             // 
             this.nudProb3horas.DecimalPlaces = 2;
             this.nudProb3horas.Location = new System.Drawing.Point(283, 38);
-            this.nudProb3horas.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.nudProb3horas.Margin = new System.Windows.Forms.Padding(2);
             this.nudProb3horas.Name = "nudProb3horas";
             this.nudProb3horas.Size = new System.Drawing.Size(61, 26);
             this.nudProb3horas.TabIndex = 14;
@@ -343,7 +343,7 @@
             // 
             this.nudProb4horas.DecimalPlaces = 2;
             this.nudProb4horas.Location = new System.Drawing.Point(283, 75);
-            this.nudProb4horas.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.nudProb4horas.Margin = new System.Windows.Forms.Padding(2);
             this.nudProb4horas.Name = "nudProb4horas";
             this.nudProb4horas.Size = new System.Drawing.Size(61, 26);
             this.nudProb4horas.TabIndex = 13;
@@ -357,7 +357,7 @@
             // 
             this.nudProb2horas.DecimalPlaces = 2;
             this.nudProb2horas.Location = new System.Drawing.Point(109, 77);
-            this.nudProb2horas.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.nudProb2horas.Margin = new System.Windows.Forms.Padding(2);
             this.nudProb2horas.Name = "nudProb2horas";
             this.nudProb2horas.Size = new System.Drawing.Size(61, 26);
             this.nudProb2horas.TabIndex = 12;
@@ -371,7 +371,7 @@
             // 
             this.nudProb1hora.DecimalPlaces = 2;
             this.nudProb1hora.Location = new System.Drawing.Point(109, 40);
-            this.nudProb1hora.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.nudProb1hora.Margin = new System.Windows.Forms.Padding(2);
             this.nudProb1hora.Name = "nudProb1hora";
             this.nudProb1hora.Size = new System.Drawing.Size(61, 26);
             this.nudProb1hora.TabIndex = 11;
@@ -391,9 +391,9 @@
             this.groupBox4.Controls.Add(this.label3);
             this.groupBox4.Font = new System.Drawing.Font("Montserrat Medium", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox4.Location = new System.Drawing.Point(302, 23);
-            this.groupBox4.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(2);
             this.groupBox4.Size = new System.Drawing.Size(271, 136);
             this.groupBox4.TabIndex = 8;
             this.groupBox4.TabStop = false;
@@ -403,7 +403,7 @@
             // 
             this.nudProbUtilitario.DecimalPlaces = 2;
             this.nudProbUtilitario.Location = new System.Drawing.Point(172, 88);
-            this.nudProbUtilitario.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.nudProbUtilitario.Margin = new System.Windows.Forms.Padding(2);
             this.nudProbUtilitario.Name = "nudProbUtilitario";
             this.nudProbUtilitario.Size = new System.Drawing.Size(61, 26);
             this.nudProbUtilitario.TabIndex = 14;
@@ -417,7 +417,7 @@
             // 
             this.nudProbGrande.DecimalPlaces = 2;
             this.nudProbGrande.Location = new System.Drawing.Point(172, 58);
-            this.nudProbGrande.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.nudProbGrande.Margin = new System.Windows.Forms.Padding(2);
             this.nudProbGrande.Name = "nudProbGrande";
             this.nudProbGrande.Size = new System.Drawing.Size(61, 26);
             this.nudProbGrande.TabIndex = 13;
@@ -453,7 +453,7 @@
             // 
             this.nudProbPequeño.DecimalPlaces = 2;
             this.nudProbPequeño.Location = new System.Drawing.Point(172, 28);
-            this.nudProbPequeño.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.nudProbPequeño.Margin = new System.Windows.Forms.Padding(2);
             this.nudProbPequeño.Name = "nudProbPequeño";
             this.nudProbPequeño.Size = new System.Drawing.Size(61, 26);
             this.nudProbPequeño.TabIndex = 10;
@@ -477,7 +477,7 @@
             // nudTiempoCobro
             // 
             this.nudTiempoCobro.Location = new System.Drawing.Point(172, 92);
-            this.nudTiempoCobro.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.nudTiempoCobro.Margin = new System.Windows.Forms.Padding(2);
             this.nudTiempoCobro.Minimum = new decimal(new int[] {
             1,
             0,
@@ -506,7 +506,7 @@
             // nudIndiceLlegadas
             // 
             this.nudIndiceLlegadas.Location = new System.Drawing.Point(172, 51);
-            this.nudIndiceLlegadas.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.nudIndiceLlegadas.Margin = new System.Windows.Forms.Padding(2);
             this.nudIndiceLlegadas.Minimum = new decimal(new int[] {
             1,
             0,
@@ -574,106 +574,13 @@
             this.montoAC,
             this.colaCobro});
             this.dgvSimulacion.Location = new System.Drawing.Point(19, 259);
-            this.dgvSimulacion.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.dgvSimulacion.Margin = new System.Windows.Forms.Padding(2);
             this.dgvSimulacion.Name = "dgvSimulacion";
             this.dgvSimulacion.ReadOnly = true;
             this.dgvSimulacion.RowHeadersWidth = 51;
             this.dgvSimulacion.RowTemplate.Height = 24;
             this.dgvSimulacion.Size = new System.Drawing.Size(1397, 275);
             this.dgvSimulacion.TabIndex = 7;
-            // 
-            // btnLimpiar
-            // 
-            this.btnLimpiar.BackColor = System.Drawing.Color.Gray;
-            this.btnLimpiar.FlatAppearance.BorderSize = 0;
-            this.btnLimpiar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnLimpiar.Font = new System.Drawing.Font("Montserrat Medium", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnLimpiar.ForeColor = System.Drawing.Color.Transparent;
-            this.btnLimpiar.Location = new System.Drawing.Point(76, 594);
-            this.btnLimpiar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.btnLimpiar.Name = "btnLimpiar";
-            this.btnLimpiar.Size = new System.Drawing.Size(85, 38);
-            this.btnLimpiar.TabIndex = 8;
-            this.btnLimpiar.Text = "Limpiar";
-            this.btnLimpiar.UseVisualStyleBackColor = false;
-            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
-            // 
-            // btnIniciar
-            // 
-            this.btnIniciar.BackColor = System.Drawing.Color.Gray;
-            this.btnIniciar.FlatAppearance.BorderSize = 0;
-            this.btnIniciar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnIniciar.Font = new System.Drawing.Font("Montserrat Medium", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnIniciar.ForeColor = System.Drawing.Color.Transparent;
-            this.btnIniciar.Location = new System.Drawing.Point(171, 594);
-            this.btnIniciar.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.btnIniciar.Name = "btnIniciar";
-            this.btnIniciar.Size = new System.Drawing.Size(182, 38);
-            this.btnIniciar.TabIndex = 9;
-            this.btnIniciar.Text = "Iniciar simulación";
-            this.btnIniciar.UseVisualStyleBackColor = false;
-            // 
-            // pgbSimulacion
-            // 
-            this.pgbSimulacion.Location = new System.Drawing.Point(5, 722);
-            this.pgbSimulacion.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.pgbSimulacion.Name = "pgbSimulacion";
-            this.pgbSimulacion.Size = new System.Drawing.Size(1411, 12);
-            this.pgbSimulacion.TabIndex = 10;
-            // 
-            // groupBox5
-            // 
-            this.groupBox5.Controls.Add(this.txtPorcentajeUtilizacion);
-            this.groupBox5.Controls.Add(this.txtRecaudacionTotal);
-            this.groupBox5.Controls.Add(this.label14);
-            this.groupBox5.Controls.Add(this.label13);
-            this.groupBox5.Font = new System.Drawing.Font("Montserrat Medium", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBox5.Location = new System.Drawing.Point(403, 573);
-            this.groupBox5.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.groupBox5.Size = new System.Drawing.Size(1013, 68);
-            this.groupBox5.TabIndex = 11;
-            this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Resultados simulación";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Montserrat Medium", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(154, 33);
-            this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(193, 21);
-            this.label13.TabIndex = 6;
-            this.label13.Text = "Recaudación total playa";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Montserrat Medium", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(550, 33);
-            this.label14.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(198, 21);
-            this.label14.TabIndex = 7;
-            this.label14.Text = "Porcentaje de utilización";
-            // 
-            // txtRecaudacionTotal
-            // 
-            this.txtRecaudacionTotal.Location = new System.Drawing.Point(362, 33);
-            this.txtRecaudacionTotal.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.txtRecaudacionTotal.Name = "txtRecaudacionTotal";
-            this.txtRecaudacionTotal.Size = new System.Drawing.Size(78, 26);
-            this.txtRecaudacionTotal.TabIndex = 8;
-            // 
-            // txtPorcentajeUtilizacion
-            // 
-            this.txtPorcentajeUtilizacion.Location = new System.Drawing.Point(764, 33);
-            this.txtPorcentajeUtilizacion.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
-            this.txtPorcentajeUtilizacion.Name = "txtPorcentajeUtilizacion";
-            this.txtPorcentajeUtilizacion.Size = new System.Drawing.Size(78, 26);
-            this.txtPorcentajeUtilizacion.TabIndex = 9;
             // 
             // evento
             // 
@@ -769,6 +676,7 @@
             this.S1finOcupacion.MinimumWidth = 6;
             this.S1finOcupacion.Name = "S1finOcupacion";
             this.S1finOcupacion.ReadOnly = true;
+            this.S1finOcupacion.Width = 125;
             // 
             // S2Estado
             // 
@@ -784,6 +692,7 @@
             this.S2finOcupacion.MinimumWidth = 6;
             this.S2finOcupacion.Name = "S2finOcupacion";
             this.S2finOcupacion.ReadOnly = true;
+            this.S2finOcupacion.Width = 125;
             // 
             // S3estado
             // 
@@ -799,6 +708,7 @@
             this.S3finOcupacion.MinimumWidth = 6;
             this.S3finOcupacion.Name = "S3finOcupacion";
             this.S3finOcupacion.ReadOnly = true;
+            this.S3finOcupacion.Width = 125;
             // 
             // S4Estado
             // 
@@ -814,6 +724,7 @@
             this.S4finOcupacion.MinimumWidth = 6;
             this.S4finOcupacion.Name = "S4finOcupacion";
             this.S4finOcupacion.ReadOnly = true;
+            this.S4finOcupacion.Width = 125;
             // 
             // S5Estado
             // 
@@ -829,6 +740,7 @@
             this.S5finOcupacion.MinimumWidth = 6;
             this.S5finOcupacion.Name = "S5finOcupacion";
             this.S5finOcupacion.ReadOnly = true;
+            this.S5finOcupacion.Width = 125;
             // 
             // S6Estado
             // 
@@ -844,6 +756,7 @@
             this.S6finOcupacion.MinimumWidth = 6;
             this.S6finOcupacion.Name = "S6finOcupacion";
             this.S6finOcupacion.ReadOnly = true;
+            this.S6finOcupacion.Width = 125;
             // 
             // S7Estado
             // 
@@ -859,6 +772,7 @@
             this.S7FinOcupacion.MinimumWidth = 6;
             this.S7FinOcupacion.Name = "S7FinOcupacion";
             this.S7FinOcupacion.ReadOnly = true;
+            this.S7FinOcupacion.Width = 125;
             // 
             // S8Estado
             // 
@@ -874,6 +788,7 @@
             this.S8FinOcupacion.MinimumWidth = 6;
             this.S8FinOcupacion.Name = "S8FinOcupacion";
             this.S8FinOcupacion.ReadOnly = true;
+            this.S8FinOcupacion.Width = 125;
             // 
             // RNDTipoAuto
             // 
@@ -881,6 +796,7 @@
             this.RNDTipoAuto.MinimumWidth = 6;
             this.RNDTipoAuto.Name = "RNDTipoAuto";
             this.RNDTipoAuto.ReadOnly = true;
+            this.RNDTipoAuto.Width = 125;
             // 
             // tipoAuto
             // 
@@ -938,6 +854,102 @@
             this.colaCobro.ReadOnly = true;
             this.colaCobro.Width = 75;
             // 
+            // btnLimpiar
+            // 
+            this.btnLimpiar.BackColor = System.Drawing.Color.Gray;
+            this.btnLimpiar.FlatAppearance.BorderSize = 0;
+            this.btnLimpiar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnLimpiar.Font = new System.Drawing.Font("Montserrat Medium", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnLimpiar.ForeColor = System.Drawing.Color.Transparent;
+            this.btnLimpiar.Location = new System.Drawing.Point(76, 594);
+            this.btnLimpiar.Margin = new System.Windows.Forms.Padding(2);
+            this.btnLimpiar.Name = "btnLimpiar";
+            this.btnLimpiar.Size = new System.Drawing.Size(85, 38);
+            this.btnLimpiar.TabIndex = 8;
+            this.btnLimpiar.Text = "Limpiar";
+            this.btnLimpiar.UseVisualStyleBackColor = false;
+            this.btnLimpiar.Click += new System.EventHandler(this.btnLimpiar_Click);
+            // 
+            // btnIniciar
+            // 
+            this.btnIniciar.BackColor = System.Drawing.Color.Gray;
+            this.btnIniciar.FlatAppearance.BorderSize = 0;
+            this.btnIniciar.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnIniciar.Font = new System.Drawing.Font("Montserrat Medium", 10F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnIniciar.ForeColor = System.Drawing.Color.Transparent;
+            this.btnIniciar.Location = new System.Drawing.Point(171, 594);
+            this.btnIniciar.Margin = new System.Windows.Forms.Padding(2);
+            this.btnIniciar.Name = "btnIniciar";
+            this.btnIniciar.Size = new System.Drawing.Size(182, 38);
+            this.btnIniciar.TabIndex = 9;
+            this.btnIniciar.Text = "Iniciar simulación";
+            this.btnIniciar.UseVisualStyleBackColor = false;
+            this.btnIniciar.Click += new System.EventHandler(this.btnIniciar_Click);
+            // 
+            // pgbSimulacion
+            // 
+            this.pgbSimulacion.Location = new System.Drawing.Point(5, 722);
+            this.pgbSimulacion.Margin = new System.Windows.Forms.Padding(2);
+            this.pgbSimulacion.Name = "pgbSimulacion";
+            this.pgbSimulacion.Size = new System.Drawing.Size(1411, 12);
+            this.pgbSimulacion.TabIndex = 10;
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.txtPorcentajeUtilizacion);
+            this.groupBox5.Controls.Add(this.txtRecaudacionTotal);
+            this.groupBox5.Controls.Add(this.label14);
+            this.groupBox5.Controls.Add(this.label13);
+            this.groupBox5.Font = new System.Drawing.Font("Montserrat Medium", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox5.Location = new System.Drawing.Point(403, 573);
+            this.groupBox5.Margin = new System.Windows.Forms.Padding(2);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Padding = new System.Windows.Forms.Padding(2);
+            this.groupBox5.Size = new System.Drawing.Size(1013, 68);
+            this.groupBox5.TabIndex = 11;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "Resultados simulación";
+            // 
+            // txtPorcentajeUtilizacion
+            // 
+            this.txtPorcentajeUtilizacion.Enabled = false;
+            this.txtPorcentajeUtilizacion.Location = new System.Drawing.Point(764, 33);
+            this.txtPorcentajeUtilizacion.Margin = new System.Windows.Forms.Padding(2);
+            this.txtPorcentajeUtilizacion.Name = "txtPorcentajeUtilizacion";
+            this.txtPorcentajeUtilizacion.Size = new System.Drawing.Size(78, 26);
+            this.txtPorcentajeUtilizacion.TabIndex = 9;
+            // 
+            // txtRecaudacionTotal
+            // 
+            this.txtRecaudacionTotal.Enabled = false;
+            this.txtRecaudacionTotal.Location = new System.Drawing.Point(362, 33);
+            this.txtRecaudacionTotal.Margin = new System.Windows.Forms.Padding(2);
+            this.txtRecaudacionTotal.Name = "txtRecaudacionTotal";
+            this.txtRecaudacionTotal.Size = new System.Drawing.Size(78, 26);
+            this.txtRecaudacionTotal.TabIndex = 8;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Font = new System.Drawing.Font("Montserrat Medium", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label14.Location = new System.Drawing.Point(550, 33);
+            this.label14.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(198, 21);
+            this.label14.TabIndex = 7;
+            this.label14.Text = "Porcentaje de utilización";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Font = new System.Drawing.Font("Montserrat Medium", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label13.Location = new System.Drawing.Point(154, 33);
+            this.label13.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(193, 21);
+            this.label13.TabIndex = 6;
+            this.label13.Text = "Recaudación total playa";
+            // 
             // SimuladorCola
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 21F);
@@ -953,7 +965,7 @@
             this.Controls.Add(this.groupBox1);
             this.Font = new System.Drawing.Font("Montserrat Medium", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "SimuladorCola";
