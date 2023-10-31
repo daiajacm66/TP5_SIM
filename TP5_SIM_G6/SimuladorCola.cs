@@ -36,8 +36,9 @@ namespace TP5_SIM_G6
             List<double> preciosTipoAuto = new List<double> { 300, 500, 1000 };
             List<double> probPermanencia = new List<double> { double.Parse(nudProb1hora.Text.ToString()), double.Parse(nudProb2horas.Text.ToString()), double.Parse(nudProb3horas.Text.ToString()), double.Parse(nudProb4horas.Text.ToString()) };
             List<double> tiempPerm = new List<double> { 1, 2, 3, 4 };
+            double tiempoCobro = double.Parse(nudTiempoCobro.Text.ToString());
 
-            TablasProbabilidades prob = new TablasProbabilidades(probTipoAuto, tipoAuto, preciosTipoAuto, probPermanencia, tiempPerm);
+            TablasProbabilidades prob = new TablasProbabilidades(probTipoAuto, tipoAuto, preciosTipoAuto, probPermanencia, tiempPerm, tiempoCobro);
 
             //Simulador sim = new Simulador();
             if (!validarInputs())
