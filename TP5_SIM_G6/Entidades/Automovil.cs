@@ -9,12 +9,31 @@ namespace TP5_SIM_G6.Entidades
     public class Automovil
     {
         #region Atributos
-        private int id { get; set; }
-        private string estado { get; set; }
-        private string tipo_auto { get; set; }
-        private float tiempo_permanencia { get; set; }
+        public int id { get; set; }
+        public string estado { get; set; }
+        public string tipoAuto { get; set; }
+        public double tiempoPermanencia { get; set; }
+
+        public double tiempoLlegada { get; set; }
+        public double tiempoFinPermanencia { get; set; }
+        public double tiempoFinCobro { get; set; }
+        public double montoACobrar { get; set; }
+
+        public bool disabled { get; set; }
+
+        public int cantidad { get; set; }
         #endregion
 
+        public Automovil() 
+        {
+            this.cantidad += 1;
+        }
 
+        public int getCantidadAutos () { return this.cantidad; }
+
+        internal void incrementarCantidad()
+        {
+            this.cantidad += 1;
+        }
     }
 }

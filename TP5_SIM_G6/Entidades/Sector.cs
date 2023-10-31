@@ -9,19 +9,17 @@ namespace TP5_SIM_G6.Entidades
     public class Sector
     {
         #region Atributos
-        private int id { get; set; }
-        private string estado { get; set; }
-        private string tipoAutomovil { get; set; }
-        private double tiempoPermanencia { get; set; }
+        public int id { get; set; }
+        public string estado { get; set; }
+        public double finOcupacion { get; set; }
         #endregion
 
         #region Constructores
-        public Sector(int id, string estado, string tipoAutomovil, double tiempoPermanencia)
+        public Sector(int id, string estado, double finOcupacion = 0)
         {
             this.id = id;
             this.estado = estado;
-            this.tipoAutomovil = tipoAutomovil;
-            this.tiempoPermanencia = tiempoPermanencia;
+            this.finOcupacion = finOcupacion;
         }
         #endregion
     }

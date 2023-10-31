@@ -1,301 +1,296 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.Common;
+using System.Diagnostics.Eventing.Reader;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using TP5_SIM_G6.Entidades;
+using static System.Collections.Specialized.BitVector32;
 
 namespace TP5_SIM_G6.Logica
 {
     public class Simulador
     {
-
         //bool DEBUG = true;
         public GeneradorAleatorio boxMullerGenerator { get; set; }
-        //public Generator generator { get; set; }
+        public double clock { get; set; }
+        public GeneradorAleatorio generator { get; set; }
+        public double tiempoCobro { get; set; }
 
-        public void Simulator()
+        public Simulador(double mediaExp, double constCobro)
         {
-            //uniformGeneratorAterrizaje = new UniformGenerator();
-            //uniformGeneratorAterrizaje.a = 3;
-            //uniformGeneratorAterrizaje.b = 5;
-            //uniformGeneratorDespegue = new UniformGenerator();
-            //uniformGeneratorDespegue.a = 2;
-            //uniformGeneratorDespegue.b = 4;
-            //convolutionGenerator = new ConvolutionGenerator();
-            GeneradorAleatorio exp = new GeneradorAleatorio();
-            exponentialGenerator.lambda = (double)0.1;
-            convolutionGenerator.mean = 80;
-            convolutionGenerator.stDeviation = 30;
-            generator = new Generator();
+            this.generator = new GeneradorAleatorio(mediaExp);
+            this.tiempoCobro = constCobro;
         }
 
 
-        public IList<StateRow> simulate(int quantity, int from, StateRow anterior)
+        public IList<VectorEstadoMostrar> simulate(int cantidad, double tiempoMaximo, int desde, VectorEstadoMostrar anterior)
         {
             Dictionary<string, double> tiempos = new Dictionary<string, double>();
-            IList<StateRow> stateRows = new List<StateRow>();
+            IList<VectorEstadoMostrar> vectoresEstado = new List<VectorEstadoMostrar>();
 
-            for (int i = 0; i < quantity; i++)
+
+            for (int i = 0; i < cantidad; i++)
             {
-                StateRow actual = new StateRow();
-
-                // Se arma diccionario con todos los tiempos del vector para determinar el menor, es decir, el siguiente evento
-                tiempos.Clear();
-                if (anterior.tiempoProximaLlegada != 0)
-                    tiempos.Add("tiempoProximaLlegada", anterior.tiempoProximaLlegada);
-                for (int j = 0; j < anterior.clientes.Count; j++)
+                if (this.clock <= anterior.reloj)
                 {
-                    if (anterior.clientes[j].tiempoFinAterrizaje != 0)
-                        tiempos.Add("tiempoFinAterrizaje_" + (j + 1).ToString(), anterior.clientes[j].tiempoFinAterrizaje);
-                    if (anterior.clientes[j].tiempoFinDeDespegue != 0)
-                        tiempos.Add("tiempoFinDeDespegue_" + (j + 1).ToString(), anterior.clientes[j].tiempoFinDeDespegue);
-                    if (anterior.clientes[j].tiempoPermanencia != 0)
-                        tiempos.Add("tiempoPermanencia_" + (j + 1).ToString(), anterior.clientes[j].tiempoPermanencia);
+                    VectorEstadoMostrar actual = new VectorEstadoMostrar();
+
+                    // Se arma diccionario con todos los tiempos del vector para determinar el menor, es decir, el siguiente evento
+                    tiempos.Clear();
+                    if (anterior.tiempoProximaLlegada != 0) 
+                        tiempos.Add("tiempoProximaLlegada", anterior.tiempoProximaLlegada);
+                    for (int s = 0; s < anterior.sectores.Count; s++)
+                    {
+                        if (anterior.sectores[s].finOcupacion != 0)
+                            tiempos.Add("tiempoFinOcupacion_" + (s + 1).ToString(), anterior.sectores[s].finOcupacion);
+                    }
+                    if (anterior.caja.tiempoFinCobro != 0) { 
+                        string autoEnCobro = "";
+                        foreach (var auto in anterior.clientes)
+                        {
+                            if (auto.estado == "EnCaja") autoEnCobro = auto.id.ToString();
+                        }
+                        
+                        tiempos.Add("tiempoFinCobro_" + autoEnCobro, anterior.caja.tiempoFinCobro);
+                    }
+
+                    // Obtiene diccionario de tiempos ordenado segun menor tiempo
+                    var tiemposOrdenados = tiempos.OrderBy(obj => obj.Value).ToDictionary(obj => obj.Key, obj => obj.Value);
+                    KeyValuePair<string, double> menorTiempo = tiemposOrdenados.First();
+
+                    // Controlamos que los aviones en tierra sean menores a 30, si lo son, pasamos al siguiente menor tiempo, es decir, el siguiente evento
+                    if (menorTiempo.Key == "tiempoProximaLlegada" && (GetCantidadSectoresOcupados(anterior) == 8))
+                    {
+                        tiemposOrdenados.Remove(tiemposOrdenados.First().Key);
+                        menorTiempo = tiemposOrdenados.First();
+                    }
+
+                    // Se crea nuevo vectorEstado segun el evento siguiente determinado
+                    switch (menorTiempo.Key)
+                    {
+                        case "tiempoProximaLlegada":
+                            actual = CrearEventoLlegadaAuto(anterior, menorTiempo.Value);
+                            break;
+                        case var val when new Regex(@"tiempoFinOcupacion_*").IsMatch(val):
+                            int autoFO = Convert.ToInt32(menorTiempo.Key.Split('_')[1]);
+                            actual = CrearEventoFinEstacionamiento(anterior, menorTiempo.Value, autoFO);
+                            break;
+                        case var someVal when new Regex(@"tiempoFinCobro_*").IsMatch(someVal):
+                            int autoEC = Convert.ToInt32(menorTiempo.Key.Split('_')[1]);
+                            actual = CrearEventoFinCobro(anterior, menorTiempo.Value, autoEC);
+                            break;
+                    }
+
+                    actual.nroSimulacion = i + 1;
+
+                    if (i >= desde - 1 && i <= desde + 99 || i == (cantidad - 1))
+                    {
+                        if (desde == 0 && i == 0)
+                            stateRows.Add(anterior);
+                        stateRows.Add(actual);
+                    }
+
+                    anterior = actual;
+                }
+                else
+                {
+                    break;
                 }
 
-                // Obtiene diccionario de tiempos ordenado segun menor tiempo
-                var tiemposOrdenados = tiempos.OrderBy(obj => obj.Value).ToDictionary(obj => obj.Key, obj => obj.Value);
-                KeyValuePair<string, double> menorTiempo = tiemposOrdenados.First();
-
-                // Controlamos que los aviones en tierra sean menores a 30, si lo son, pasamos al siguiente menor tiempo, es decir, el siguiente evento
-                if (menorTiempo.Key == "tiempoProximaLlegada" && (anterior.pista.colaEET.Count + anterior.pista.colaEEV.Count + GetCantidadAvionesEnPermanencia(anterior) >= 30))
-                {
-                    tiemposOrdenados.Remove(tiemposOrdenados.First().Key);
-                    menorTiempo = tiemposOrdenados.First();
-                }
-
-                // Se crea nuevo staterow segun el evento siguiente determinado
-                switch (menorTiempo.Key)
-                {
-                    case "tiempoProximaLlegada":
-                        actual = CrearStateRowLlegadaAvion(anterior, menorTiempo.Value);
-                        break;
-                    case var val when new Regex(@"tiempoFinAterrizaje_*").IsMatch(val):
-                        int avionFA = Convert.ToInt32(menorTiempo.Key.Split('_')[1]);
-                        actual = CrearStateRowFinAterrizaje(anterior, menorTiempo.Value, avionFA);
-                        break;
-                    case var someVal when new Regex(@"tiempoFinDeDespegue_*").IsMatch(someVal):
-                        int avionD = Convert.ToInt32(menorTiempo.Key.Split('_')[1]);
-                        actual = CrearStateRowFinDeDespegue(anterior, menorTiempo.Value, avionD);
-                        break;
-                    case var someVal when new Regex(@"tiempoPermanencia_*").IsMatch(someVal):
-                        int avion = Convert.ToInt32(menorTiempo.Key.Split('_')[1]);
-                        actual = CrearStateRowFinDePermanencia(anterior, menorTiempo.Value, avion);
-                        break;
-                }
-
-                actual.iterationNum = i + 1;
-
-                if (i >= from - 1 && i <= from + 99 || i == (quantity - 1))
-                {
-                    if (from == 0 && i == 0)
-                        stateRows.Add(anterior);
-                    stateRows.Add(actual);
-                }
-
-                anterior = actual;
             }
+            return vectoresEstado;
 
-            return stateRows;
         }
 
-        private int GetCantidadAvionesEnPermanencia(StateRow vector)
+        private int GetCantidadSectoresOcupados(VectorEstadoMostrar vector)
         {
             int contador = 0;
-            for (int i = 0; i < vector.clientes.Count; i++)
+            for (int i = 0; i < vector.sectores.Count; i++)
             {
-                if (vector.clientes[i].estado == "EP")
+                if (vector.sectores[i].estado == "Ocupado")
                     contador += 1;
             }
             return contador;
         }
 
-        private StateRow CrearStateRowLlegadaAvion(StateRow anterior, double tiempoProximoEvento)
+        private VectorEstadoMostrar CrearEventoLlegadaAuto(VectorEstadoMostrar anterior, double tiempoProximoEvento)
         {
-            Avion.count += 1;
-            Avion avionNuevo = new Avion();
-            StateRow nuevo = new StateRow();
-            StateRow _anterior = anterior;
+            Automovil a = new Automovil();
+            
+            TablasProbabilidades probabilidades = new TablasProbabilidades();
+            //Automovil autoNuevo = new Automovil();
+            VectorEstadoMostrar nuevo = new VectorEstadoMostrar();
+            VectorEstadoMostrar _anterior = anterior;
             nuevo = this.arrastrarVariablesEst(_anterior);
-            nuevo.evento = "Llegada Avion (" + Avion.count.ToString() + ")";
+            nuevo.evento = "Llegada Automovil (" + a.cantidad.ToString() + ")";
             nuevo.reloj = tiempoProximoEvento;
 
             // Se arrastran variables estadísticas.
 
-            // Calcular siguiente tiempo de llegada de prox avion
-            nuevo.rndLlegada = this.generator.NextRnd();
-            nuevo.tiempoEntreLlegadas = this.exponentialGenerator.Generate(nuevo.rndLlegada);
-            nuevo.tiempoProximaLlegada = nuevo.tiempoEntreLlegadas + nuevo.reloj;
+            // Calcular siguiente tiempo de llegada de prox automovil
+            Random r = new Random();
+            nuevo.rndLlegadaAutomovil = r.NextDouble();
+            nuevo.tiempoLlegadaAutomovil = this.generator.Generate(nuevo.rndLlegadaAutomovil);
+            nuevo.tiempoProximaLlegada = nuevo.tiempoLlegadaAutomovil + nuevo.reloj;
 
-            // Calcular variables de aterrizaje
-            // Calculos variables de pista
-            nuevo.pista = new Pista();
-            nuevo.pista.libre = _anterior.pista.libre;
-            nuevo.pista.colaEEV = _anterior.pista.colaEEV;
-            nuevo.pista.colaEET = _anterior.pista.colaEET;
-            if (!nuevo.pista.libre)
+            nuevo.contadorSectoresOcupados += 1;
+            if (anterior.nroSimulacion == 1) 
+                nuevo.tiempoOcupacion = 0;
+            else 
+                nuevo.tiempoOcupacion = nuevo.reloj - anterior.reloj;
+            
+            nuevo.tiempoOcupacionAC = anterior.tiempoOcupacionAC + nuevo.tiempoOcupacion;
+
+            nuevo.rndTiempoPermanencia = r.NextDouble();
+            nuevo.tiempoPermanencia = probabilidades.buscarTiempoPermanencia(nuevo.rndTiempoPermanencia);
+
+            for (int i = 0; i < anterior.sectores.Count; i++)
             {
-                avionNuevo.estado = "EEV";
-                nuevo.pista.colaEEV.Enqueue(avionNuevo);
-                nuevo.tiempoFinAterrizaje = _anterior.tiempoFinAterrizaje;
-                avionNuevo.tiempoEEVin = nuevo.reloj;
-            }
-            else
-            {
-                avionNuevo.estado = "EA";
-                nuevo.rndAterrizaje = this.generator.NextRnd();
-                nuevo.tiempoAterrizaje = this.uniformGeneratorAterrizaje.Generate(nuevo.rndAterrizaje);
-                nuevo.tiempoFinAterrizaje = nuevo.tiempoAterrizaje + nuevo.reloj;
-                avionNuevo.tiempoFinAterrizaje = nuevo.tiempoFinAterrizaje;
-                nuevo.pista.libre = false;
-                avionNuevo.instantLanding = true;
-            }
-
-            // Calcular variables de despegue
-            nuevo.tiempoFinDeDespegue = _anterior.tiempoFinDeDespegue;
-
-
-            // Clientes
-            nuevo.clientes = new List<Avion>();
-            foreach (Avion avionAnterior in _anterior.clientes)
-            {
-                Avion aux = new Avion()
+                if (anterior.sectores[i].estado == "Libre")
                 {
-                    estado = avionAnterior.estado,
-                    id = avionAnterior.id,
-                    disabled = avionAnterior.disabled,
-                    tiempoFinAterrizaje = avionAnterior.tiempoFinAterrizaje,
-                    tiempoPermanencia = avionAnterior.tiempoPermanencia,
-                    tiempoFinDeDespegue = avionAnterior.tiempoFinDeDespegue,
-                    tiempoEETin = avionAnterior.tiempoEETin,
-                    tiempoEEVin = avionAnterior.tiempoEEVin,
-                    instantLanding = avionAnterior.instantLanding
+                    nuevo.sectores[i].estado = "Ocupado";
+                    nuevo.sectores[i].finOcupacion = nuevo.tiempoPermanencia + nuevo.reloj;
+                    break;
+                }
+            }
+
+            nuevo.rndTipoAuto = r.NextDouble();
+            double montoACobrar;
+            (nuevo.tipoAuto, montoACobrar) = probabilidades.buscarTipoAuto(nuevo.rndTipoAuto);
+            montoACobrar = (montoACobrar * (nuevo.tiempoPermanencia / 60)); //minutos
+            nuevo.caja.montoAC = anterior.caja.montoAC + nuevo.caja.montoCobrar;
+            nuevo.caja.estado = "Libre";
+            nuevo.caja.tiempoCobro = probabilidades.getTiempoCobro();
+            nuevo.caja.tiempoFinCobro = nuevo.caja.tiempoCobro + nuevo.reloj;
+            nuevo.caja.cola = anterior.caja.cola;
+            nuevo.caja.conteoCola = anterior.caja.conteoCola;
+
+            //Creamos instancia de cliente
+            nuevo.clientes = new List<Automovil>();
+            foreach (Automovil autoAnterior in _anterior.clientes)
+            {
+                Automovil aux = new Automovil()
+                {
+                    estado = autoAnterior.estado,
+                    id = autoAnterior.id,
+                    tipoAuto = autoAnterior.tipoAuto,
+                    tiempoPermanencia = autoAnterior.tiempoPermanencia,
+                    tiempoLlegada = autoAnterior.tiempoLlegada,
+                    tiempoFinPermanencia = autoAnterior.tiempoFinPermanencia,
+                    tiempoFinCobro = autoAnterior.tiempoFinCobro,
+                    disabled = autoAnterior.disabled,
+                    montoACobrar = montoACobrar
                 };
+                aux.incrementarCantidad();
                 nuevo.clientes.Add(aux);
             }
-            nuevo.clientes.Add(avionNuevo);
-
-            // Se recalculan variables estadísticas
-            nuevo.porcAvionesAyDInst = (Convert.ToDouble(nuevo.cantAvionesAyDInst) / Convert.ToDouble(nuevo.clientes.Count)) * 100;
-            nuevo.avgEETTime = Convert.ToDouble(nuevo.acumEETTime) / Convert.ToDouble(nuevo.clientes.Count);
-            nuevo.avgEEVTime = Convert.ToDouble(nuevo.acumEEVTime) / Convert.ToDouble(nuevo.clientes.Count);
-
-            nuevo.pista.colaEETnum = nuevo.pista.colaEET.Count;
-            nuevo.pista.colaEEVnum = nuevo.pista.colaEEV.Count;
+            //nuevo.clientes.Add(autoNuevo);
 
             return nuevo;
         }
 
-        private StateRow CrearStateRowFinDeDespegue(StateRow anterior, double tiempoProximoEvento, int avion)
+
+        private VectorEstadoMostrar CrearEventoFinEstacionamiento(VectorEstadoMostrar anterior, double tiempoProximoEvento, int auto)
         {
-            StateRow nuevo = new StateRow();
-            StateRow _anterior = anterior;
+            TablasProbabilidades probabilidades = new TablasProbabilidades();
+
+            VectorEstadoMostrar nuevo = new VectorEstadoMostrar();
+            VectorEstadoMostrar _anterior = anterior;
             nuevo = this.arrastrarVariablesEst(_anterior);
-            nuevo.evento = "Fin Despegue (" + avion.ToString() + ")";
+            nuevo.evento = "Fin Estacionamiento (" + auto.ToString() + ")";
             nuevo.reloj = tiempoProximoEvento;
-            nuevo.clientes = new List<Avion>();
+            nuevo.clientes = new List<Automovil>();
             nuevo.tiempoProximaLlegada = _anterior.tiempoProximaLlegada;
             // Se arrastran variables estadísticas
 
-            foreach (Avion avionAnterior in _anterior.clientes)
+            foreach (Automovil autoAnterior in _anterior.clientes)
             {
-                Avion aux = new Avion()
+                Automovil aux = new Automovil()
                 {
-                    estado = avionAnterior.estado,
-                    id = avionAnterior.id,
-                    disabled = avionAnterior.disabled,
-                    tiempoFinAterrizaje = avionAnterior.tiempoFinAterrizaje,
-                    tiempoPermanencia = avionAnterior.tiempoPermanencia,
-                    tiempoFinDeDespegue = avionAnterior.tiempoFinDeDespegue,
-                    tiempoEETin = avionAnterior.tiempoEETin,
-                    tiempoEEVin = avionAnterior.tiempoEEVin,
-                    instantLanding = avionAnterior.instantLanding
+                    estado = autoAnterior.estado,
+                    id = autoAnterior.id,
+                    tipoAuto = autoAnterior.tipoAuto,
+                    tiempoPermanencia = autoAnterior.tiempoPermanencia,
+                    tiempoLlegada = autoAnterior.tiempoLlegada,
+                    tiempoFinPermanencia = autoAnterior.tiempoFinPermanencia,
+                    tiempoFinCobro = autoAnterior.tiempoFinCobro,
+                    montoACobrar = autoAnterior.montoACobrar
                 };
                 nuevo.clientes.Add(aux);
             }
 
-            Avion avionDespegado = new Avion();
-            avionDespegado = nuevo.clientes[avion - 1];
-            nuevo.clientes[avion - 1].tiempoFinDeDespegue = 0;
-            nuevo.clientes[avion - 1].estado = "";
-            nuevo.clientes[avion - 1].disabled = true;
+            Automovil autoFO = new Automovil();
+            autoFO = nuevo.clientes[auto - 1];
+            //nuevo.clientes[auto - 1].tiempoFinPermanencia = 0;
+            //nuevo.clientes[auto - 1].estado = "EnCaja";
+            //nuevo.clientes[auto - 1].disabled = false;
 
-            // Calculos variables de pista
-            nuevo.pista = new Pista();
-            nuevo.pista.colaEET = new Queue<Avion>();
-            nuevo.pista.colaEEV = new Queue<Avion>();
-            nuevo.pista.libre = _anterior.pista.libre;
-            nuevo.pista.colaEEV = _anterior.pista.colaEEV;
-            nuevo.pista.colaEET = _anterior.pista.colaEET;
 
-            if (nuevo.pista.colaEEV.Count != 0)
+            if(anterior.caja.estado == "Libre")
             {
-                // Calculos variables aterrizaje
-                Avion avionNuevo = nuevo.pista.colaEEV.Dequeue();
-                nuevo.rndAterrizaje = this.generator.NextRnd();
-                nuevo.tiempoAterrizaje = this.uniformGeneratorAterrizaje.Generate(nuevo.rndAterrizaje);
-                nuevo.tiempoFinAterrizaje = nuevo.tiempoAterrizaje + nuevo.reloj;
-                nuevo.pista.libre = false;
-                nuevo.clientes[avionNuevo.id - 1].tiempoFinAterrizaje = nuevo.tiempoFinAterrizaje;
-                nuevo.clientes[avionNuevo.id - 1].estado = "EA";
-
-
-                // Se chequea si el tiempo de espera en cola del avión desencolado es mayor al máx registrado,
-                // de ser así lo asigna como maxEEVTime.
-                // Puede que el chequeo no sea necesario
-                if (nuevo.clientes[avionNuevo.id - 1].tiempoEEVin != 0)
+                foreach (Sector sector in anterior.sectores)
                 {
-                    double eevTime = nuevo.reloj - nuevo.clientes[avionNuevo.id - 1].tiempoEEVin;
-                    if (eevTime > nuevo.maxEEVTime) nuevo.maxEEVTime = eevTime;
+                    if(sector.estado == "Ocupado" && sector.finOcupacion == tiempoProximoEvento)
+                    {
+                        int idSector = sector.id;
+                        nuevo.sectores = anterior.sectores;
+                        nuevo.sectores[idSector - 1].estado = "Libre";
+                        nuevo.contadorSectoresOcupados = anterior.contadorSectoresOcupados - 1;
+                        nuevo.tiempoOcupacion = nuevo.reloj - anterior.reloj;
+                        nuevo.tiempoOcupacionAC = anterior.tiempoOcupacionAC + nuevo.tiempoOcupacion;
 
-                    nuevo.acumEEVTime += eevTime;
+                        nuevo.caja = anterior.caja;
+                        nuevo.caja.estado = "Ocupado";
+                        nuevo.caja.tiempoCobro = probabilidades.getTiempoCobro();
+                        nuevo.caja.tiempoFinCobro = nuevo.caja.tiempoCobro + nuevo.reloj;
+                        nuevo.caja.montoCobrar = autoFO.montoACobrar;
+                        nuevo.caja.montoAC += nuevo.caja.montoCobrar;
 
-                }
-            }
-            else if (nuevo.pista.colaEET.Count != 0)
-            {
-                // Calculos variables de despegue
-                Avion avionNuevo = nuevo.pista.colaEET.Dequeue();
-                nuevo.rndDespegue = this.generator.NextRnd();
-                nuevo.tiempoDeDespegue = this.uniformGeneratorDespegue.Generate(nuevo.rndDespegue);
-                nuevo.tiempoFinDeDespegue = nuevo.tiempoDeDespegue + nuevo.reloj;
-                nuevo.pista.libre = false;
-                nuevo.clientes[avionNuevo.id - 1].tiempoFinDeDespegue = nuevo.tiempoFinDeDespegue;
-                nuevo.clientes[avionNuevo.id - 1].estado = "ED";
-
-
-                // Idem cola en vuelo
-                if (nuevo.clientes[avionNuevo.id - 1].tiempoEETin != 0)
-                {
-                    double eetTime = nuevo.reloj - nuevo.clientes[avionNuevo.id - 1].tiempoEETin;
-                    if (eetTime > nuevo.maxEETTime) nuevo.maxEETTime = eetTime;
-
-                    nuevo.acumEETTime += eetTime;
+                        nuevo.clientes = anterior.clientes;
+                        nuevo.clientes[auto - 1].estado = "En Caja";
+                    }
                 }
             }
             else
             {
-                nuevo.pista.libre = true;
+                foreach (Sector sector in anterior.sectores)
+                {
+                    if (sector.estado == "Ocupado" && sector.finOcupacion == tiempoProximoEvento)
+                    {
+                        int idSector = sector.id;
+                        nuevo.sectores = anterior.sectores;
+                        //nuevo.sectores[idSector - 1].estado = "Libre";
+                        //nuevo.contadorSectoresOcupados = anterior.contadorSectoresOcupados - 1;
+                        nuevo.tiempoOcupacion = nuevo.reloj - anterior.reloj;
+                        nuevo.tiempoOcupacionAC = anterior.tiempoOcupacionAC + nuevo.tiempoOcupacion;
+
+                        nuevo.caja = anterior.caja;
+                        nuevo.caja.estado = "Ocupado";
+                        nuevo.caja.tiempoCobro = 0;
+                        nuevo.caja.montoCobrar = 0;
+                        nuevo.caja.cola.Add(autoFO);
+                        nuevo.caja.conteoCola += 1;
+
+                        nuevo.clientes = anterior.clientes;
+                        nuevo.clientes[auto - 1].estado = "Espera";
+                    }
+                }
             }
-
-            // Se recalculan variables estadísticas
-            nuevo.porcAvionesAyDInst = (Convert.ToDouble(nuevo.cantAvionesAyDInst) / Convert.ToDouble(nuevo.clientes.Count)) * 100;
-            nuevo.avgEETTime = nuevo.acumEETTime / Convert.ToDouble(nuevo.clientes.Count);
-            nuevo.avgEEVTime = nuevo.acumEEVTime / Convert.ToDouble(nuevo.clientes.Count);
-
-            nuevo.pista.colaEETnum = nuevo.pista.colaEET.Count;
-            nuevo.pista.colaEEVnum = nuevo.pista.colaEEV.Count;
 
             return nuevo;
         }
 
-        private StateRow CrearStateRowFinAterrizaje(StateRow anterior, double tiempoProximoEvento, int avion)
+        private VectorEstadoMostrar CrearEventoFinCobro(VectorEstadoMostrar anterior, double tiempoProximoEvento, int auto)
         {
-            StateRow nuevo = new StateRow();
-            StateRow _anterior = anterior;
+            VectorEstadoMostrar nuevo = new VectorEstadoMostrar();
+            VectorEstadoMostrar _anterior = anterior;
             nuevo = this.arrastrarVariablesEst(_anterior);
-            nuevo.evento = "Fin Aterrizaje (" + avion.ToString() + ")";
+            nuevo.evento = "Fin Aterrizaje (" + auto.ToString() + ")";
             nuevo.reloj = tiempoProximoEvento;
             nuevo.tiempoProximaLlegada = _anterior.tiempoProximaLlegada;
             // Se arrastran variables estadísticas
@@ -324,9 +319,9 @@ namespace TP5_SIM_G6.Logica
             nuevo.tiempoDePermanencia = convolutionGenerator.Generate(out ac);
             nuevo.rndPermanencia = ac;
             nuevo.tiempoFinPermanencia = nuevo.reloj + nuevo.tiempoDePermanencia;
-            nuevo.clientes[avion - 1].tiempoPermanencia = nuevo.tiempoFinPermanencia;
-            nuevo.clientes[avion - 1].tiempoFinAterrizaje = 0;
-            nuevo.clientes[avion - 1].estado = "EP";
+            nuevo.clientes[auto - 1].tiempoPermanencia = nuevo.tiempoFinPermanencia;
+            nuevo.clientes[auto - 1].tiempoFinAterrizaje = 0;
+            nuevo.clientes[auto - 1].estado = "EP";
 
             // Calculos variables de pista
             nuevo.pista = new Pista();
@@ -471,20 +466,26 @@ namespace TP5_SIM_G6.Logica
             return nuevo;
         }
 
-        private StateRow arrastrarVariablesEst(StateRow _anterior)
+        private VectorEstadoMostrar arrastrarVariablesEst(VectorEstadoMostrar _anterior)
         {
-            StateRow nuevo = new StateRow();
+            VectorEstadoMostrar nuevo = new VectorEstadoMostrar();
 
-            nuevo.maxEEVTime = _anterior.maxEEVTime;
-            nuevo.maxEETTime = _anterior.maxEETTime;
-            nuevo.porcAvionesAyDInst = _anterior.porcAvionesAyDInst;
-            nuevo.cantAvionesAyDInst = _anterior.cantAvionesAyDInst;
-            nuevo.acumEETTime = _anterior.acumEETTime;
-            nuevo.acumEEVTime = _anterior.acumEEVTime;
-            nuevo.avgEETTime = _anterior.avgEETTime;
-            nuevo.avgEEVTime = _anterior.avgEEVTime;
+
+            nuevo.tiempoOcupacionAC = _anterior.tiempoOcupacionAC;
+            nuevo.caja = _anterior.caja;
+
+
+            //nuevo.maxEEVTime = _anterior.maxEEVTime;
+            //nuevo.maxEETTime = _anterior.maxEETTime;
+            //nuevo.porcAvionesAyDInst = _anterior.porcAvionesAyDInst;
+            //nuevo.cantAvionesAyDInst = _anterior.cantAvionesAyDInst;
+            //nuevo.acumEETTime = _anterior.acumEETTime;
+            //nuevo.acumEEVTime = _anterior.acumEEVTime;
+            //nuevo.avgEETTime = _anterior.avgEETTime;
+            //nuevo.avgEEVTime = _anterior.avgEEVTime;
 
             return nuevo;
         }
+
     }
 }
