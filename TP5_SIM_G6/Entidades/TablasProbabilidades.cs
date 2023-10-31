@@ -45,8 +45,24 @@ namespace TP5_SIM_G6.Entidades
             valores.Columns.Add("PRECIO", typeof(double));
 
             int cantTipos = tipoAutos.Count;
+            double li, ls;
 
             //CAMBIAR A FOR
+            for (int i = 0; i < cantTipos; i++)
+            {
+                if (cantTipos == (i - 1)) //es ultima demanda
+                {
+                    valores.Rows.Add(tipoAutos[i], prob[i], li, 0.99999, precios[i]);
+                }
+                else
+                {
+                    ls += probabilidades[i];
+                    valores.Rows.Add(demanda, probabilidades[i], li, ls, precios[i]);
+                    li = ls;
+                }
+                i++;
+            }
+            
             foreach (string tipo in tipoAutos)
             {
                 if (cantTipos == (i - 1)) //es ultima demanda
