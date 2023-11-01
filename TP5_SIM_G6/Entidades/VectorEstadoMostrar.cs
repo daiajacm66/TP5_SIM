@@ -20,32 +20,32 @@ namespace TP5_SIM_G6.Entidades
         public double tiempoOcupacionAC { get; set; }
         public double rndTiempoPermanencia { get; set; }
         public double tiempoPermanencia { get; set; }
-        public Sector sector1 { get; set; }
-        //public string estadoS1 { get; set; }
-        //public double finOcupacionS1 { get; set; }
-        public Sector sector2 { get; set; }
-        //public string estadoS2 { get; set; }
-        //public double finOcupacionS2 { get; set; }
-        public Sector sector3 { get; set; }
-        //public string estadoS3 { get; set; }
-        //public double finOcupacionS3 { get; set; }
-        public Sector sector4 { get; set; }
-        //public string estadoS4 { get; set; }
-        //public double finOcupacionS4 { get; set; }
-        public Sector sector5 { get; set; }
-        //public string estadoS5 { get; set; }
-        //public double finOcupacionS5 { get; set; }
-        public Sector sector6 { get; set; }
-        //public string estadoS6 { get; set; }
-        //public double finOcupacionS6 { get; set; }
-        public Sector sector7 { get; set; }
-        //public string estadoS7 { get; set; }
-        //public double finOcupacionS7 { get; set; }
-        public Sector sector8 { get; set; }
-        //public string estadoS8 { get; set; }
-        //public double finOcupacionS8 { get; set; }
-        //public double rndTipoAutomovil { get; set; }
-        //public string tipoAutomovil { get; set; }
+        //public Sector sector1 { get; set; }
+        ////public string estadoS1 { get; set; }
+        ////public double finOcupacionS1 { get; set; }
+        //public Sector sector2 { get; set; }
+        ////public string estadoS2 { get; set; }
+        ////public double finOcupacionS2 { get; set; }
+        //public Sector sector3 { get; set; }
+        ////public string estadoS3 { get; set; }
+        ////public double finOcupacionS3 { get; set; }
+        //public Sector sector4 { get; set; }
+        ////public string estadoS4 { get; set; }
+        ////public double finOcupacionS4 { get; set; }
+        //public Sector sector5 { get; set; }
+        ////public string estadoS5 { get; set; }
+        ////public double finOcupacionS5 { get; set; }
+        //public Sector sector6 { get; set; }
+        ////public string estadoS6 { get; set; }
+        ////public double finOcupacionS6 { get; set; }
+        //public Sector sector7 { get; set; }
+        ////public string estadoS7 { get; set; }
+        ////public double finOcupacionS7 { get; set; }
+        //public Sector sector8 { get; set; }
+        ////public string estadoS8 { get; set; }
+        ////public double finOcupacionS8 { get; set; }
+        ////public double rndTipoAutomovil { get; set; }
+        ////public string tipoAutomovil { get; set; }
         public double rndTipoAuto { get;set;}
         public string tipoAuto { get; set; }
         public Caja caja { get; set; }

@@ -18,8 +18,8 @@ namespace TP5_SIM_G6.Entidades
 
         public TablasProbabilidades(List<double> probTipoAuto, List<string> tipoAuto, List<double> preciosTipoAuto, List<double> probPermanencia, List<double> tiempPerm, double tiempoCobro)
         {
-            DataTable tablaTiempoPermanencia = setTablaTipoAuto(probTipoAuto, tipoAuto, preciosTipoAuto);
-            DataTable tablaTipoAutomovil = setTablaPermanencia(probPermanencia, tiempPerm);
+            DataTable tablaTiempoPermanencia = setTablaPermanencia(probPermanencia, tiempPerm); 
+            DataTable tablaTipoAutomovil = setTablaTipoAuto(probTipoAuto, tipoAuto, preciosTipoAuto);
 
             if (this._tablaTiempoPermanencia == null || this._tablaTipoAutomovil == null)
             {
@@ -42,7 +42,7 @@ namespace TP5_SIM_G6.Entidades
         {
             DataTable valores = new DataTable();
 
-            valores.Columns.Add("TIPOAUTO", typeof(int));
+            valores.Columns.Add("TIPOAUTO", typeof(string));
             valores.Columns.Add("PROBABILIDAD", typeof(double));
             valores.Columns.Add("LI", typeof(double));
             valores.Columns.Add("LS", typeof(double));
@@ -104,7 +104,7 @@ namespace TP5_SIM_G6.Entidades
         public double buscarTiempoPermanencia(double rndTiempoPermanencia)
         {
             double tiempoPermanencia = 0;
-            foreach (DataRow prob in this._tablaTiempoPermanencia.Rows)
+            foreach (DataRow prob in _tablaTiempoPermanencia.Rows)
             {
                 if (rndTiempoPermanencia >= Convert.ToDouble(prob["LI"]) && rndTiempoPermanencia < Convert.ToDouble(prob["LS"]))
                 {
@@ -119,7 +119,7 @@ namespace TP5_SIM_G6.Entidades
         {
             string tipoAuto = "";
             double precio = 0;
-            foreach (DataRow prob in this._tablaTiempoPermanencia.Rows)
+            foreach (DataRow prob in this._tablaTipoAutomovil.Rows)
             {
                 if (rndTipoAuto >= Convert.ToDouble(prob["LI"]) && rndTipoAuto < Convert.ToDouble(prob["LS"]))
                 {

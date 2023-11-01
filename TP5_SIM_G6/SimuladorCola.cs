@@ -39,6 +39,7 @@ namespace TP5_SIM_G6
             double tiempoCobro = double.Parse(nudTiempoCobro.Text.ToString());
 
             TablasProbabilidades prob = new TablasProbabilidades(probTipoAuto, tipoAuto, preciosTipoAuto, probPermanencia, tiempPerm, tiempoCobro);
+            Automovil automovil = new Automovil();
 
             //Simulador sim = new Simulador();
             if (!validarInputs())
@@ -48,7 +49,7 @@ namespace TP5_SIM_G6
             }
 
             this.dgvSimulacion.Rows.Clear();
-            Automovil.cantidad = 0;
+            automovil.cantidad = 0;
 
             int tiempoMaximo = Convert.ToInt32(this.nudX.Text);
             int cantMaxima = Convert.ToInt32(this.nudCantFilas.Text);
@@ -72,21 +73,25 @@ namespace TP5_SIM_G6
                 tiempoProximaLlegada = clock + proxAutomovil,
                 contadorSectoresOcupados = 0,
                 tiempoOcupacionAC = 0,
-                sector1 = new Sector(1, "Libre"),
-                sector2 = new Sector(2, "Libre"),
-                sector3 = new Sector(3, "Libre"),
-                sector4 = new Sector(4, "Libre"),
-                sector5 = new Sector(5, "Libre"),
-                sector6 = new Sector(6, "Libre"),
-                sector7 = new Sector(7, "Libre"),
-                sector8 = new Sector(8, "Libre"),
+
+                sectores = new List<Sector>(),
+                
                 caja = new Caja(1, "Libre", 0, 0, 0, 0, new List<Automovil>()),
                 clientes = new List<Automovil>()
 
             };
 
+            initialize.sectores.Add(new Sector(1, "Libre"));
+            initialize.sectores.Add(new Sector(2, "Libre"));
+            initialize.sectores.Add(new Sector(3, "Libre"));
+            initialize.sectores.Add(new Sector(4, "Libre"));
+            initialize.sectores.Add(new Sector(5, "Libre"));
+            initialize.sectores.Add(new Sector(6, "Libre"));
+            initialize.sectores.Add(new Sector(7, "Libre"));
+            initialize.sectores.Add(new Sector(8, "Libre"));
+
             Simulador simulador = new Simulador(Convert.ToDouble(this.nudIndiceLlegadas.Text), Convert.ToDouble(this.nudTiempoCobro.Text));
-            IList<VectorEstadoMostrar> filasAMostrar = simulador.simulate(cantMaxima, tiempoMaximo, desde, initialize);
+            IList<VectorEstadoMostrar> filasAMostrar = simulador.Simular(cantMaxima, tiempoMaximo, desde, initialize, prob);
 
             //this.txtMaxTimeEET.Text = truncar(filasAMostrar[filasAMostrar.Count - 1].maxEETTime).ToString();
             //this.txtMaxTimeEEV.Text = truncar(filasAMostrar[filasAMostrar.Count - 1].maxEEVTime).ToString();
@@ -94,7 +99,22 @@ namespace TP5_SIM_G6
             //this.txtAvgTimeEEV.Text = truncar(filasAMostrar[filasAMostrar.Count - 1].avgEEVTime).ToString();
             //this.txtPorcAyDInstant.Text = truncar(filasAMostrar[filasAMostrar.Count - 1].porcAvionesAyDInst).ToString();
 
-            if (to != filasAMostrar.Last().iterationNum)
+            //for (int i = 0; i < Double.Parse(nudCantFilas.ToString()); i++)
+            //{
+            //    if (i >= desde)
+            //    {
+            //        dgvSimulacion.Rows.Add(i, filasAMostrar.cantClientes, filaActual.cantPastelitos, filaActual.stockPastelitos, filaActual.stockAC, filaActual.ingreso, filaActual.ingresoAC, filaActual.utilidad, filaActual.utilidadAC);
+            //        //prbSimulacion.Value = d + 1;
+
+            //        //if (d == n)
+            //        //{
+            //        //    grdSimUltimaFila.Rows.Add(d, filaActual.cantClientes, filaActual.cantPastelitos, filaActual.stockPastelitos, filaActual.stockAC, filaActual.ingreso, filaActual.ingresoAC, filaActual.utilidad, filaActual.utilidadAC);
+            //        //}
+            //    }
+            //}
+          /*  filaAnterior = filaActual*/;
+
+            if (desde != filasAMostrar.Last().nroSimulacion)
                 filasAMostrar.Remove(filasAMostrar.Last());
 
             int columnaInicial = 0;
@@ -112,14 +132,17 @@ namespace TP5_SIM_G6
 
             for (int i = 0; i < filasAMostrar.Count; i++)
             {
-                string estadoPista = filasAMostrar[i].pista.libre ? "Libre" : "Ocupada";
+                //string estadoPista = filasAMostrar[i].pista.libre ? "Libre" : "Ocupada";
 
                 // Manejo de columnas
                 if (i == 0)
                 {
-                    this.dgvResults.ColumnCount = 23;
+                    this.dgvSimulacion.ColumnCount = 34;
                 }
+
             }
+
+            
         }
 
         //private List<Automovil> getAutomovilesEstacionados()
