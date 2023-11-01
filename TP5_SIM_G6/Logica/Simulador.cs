@@ -69,6 +69,11 @@ namespace TP5_SIM_G6.Logica
                         tiemposOrdenados.Remove(tiemposOrdenados.First().Key);
                         menorTiempo = tiemposOrdenados.First();
                     }
+                    while(menorTiempo.Value == 0)
+                    {
+                        tiemposOrdenados.Remove(tiemposOrdenados.First().Key);
+                        menorTiempo = tiemposOrdenados.First();
+                    }
 
                     // Se crea nuevo vectorEstado segun el evento siguiente determinado
                     switch (menorTiempo.Key)
@@ -161,13 +166,13 @@ namespace TP5_SIM_G6.Logica
             }
 
             nuevo.rndTipoAuto = r.NextDouble();
-            double montoACobrar;
-            (nuevo.tipoAuto, montoACobrar) = probabilidades.buscarTipoAuto(nuevo.rndTipoAuto);
-            montoACobrar = (montoACobrar * (nuevo.tiempoPermanencia / 60)); //minutos
+            //double montoACobrar;
+            //(nuevo.tipoAuto, montoACobrar) = probabilidades.buscarTipoAuto(nuevo.rndTipoAuto);
+           //montoACobrar = (montoACobrar * (nuevo.tiempoPermanencia / 60)); //minutos
             nuevo.caja.montoAC = _anterior.caja.montoAC + nuevo.caja.montoCobrar;
             nuevo.caja.estado = "Libre";
-            nuevo.caja.tiempoCobro = probabilidades.getTiempoCobro();
-            nuevo.caja.tiempoFinCobro = nuevo.caja.tiempoCobro + nuevo.reloj;
+            //nuevo.caja.tiempoCobro = probabilidades.getTiempoCobro();
+            //nuevo.caja.tiempoFinCobro = nuevo.caja.tiempoCobro + nuevo.reloj;
             nuevo.caja.cola = _anterior.caja.cola;
             nuevo.caja.conteoCola = _anterior.caja.conteoCola;
 
@@ -183,9 +188,9 @@ namespace TP5_SIM_G6.Logica
                     tiempoPermanencia = autoAnterior.tiempoPermanencia,
                     tiempoLlegada = autoAnterior.tiempoLlegada,
                     tiempoFinPermanencia = autoAnterior.tiempoFinPermanencia,
-                    tiempoFinCobro = autoAnterior.tiempoFinCobro,
+                    //tiempoFinCobro = autoAnterior.tiempoFinCobro,
                     disabled = autoAnterior.disabled,
-                    montoACobrar = montoACobrar
+                    //montoACobrar = montoACobrar
                 };
                 aux.incrementarCantidad();
                 nuevo.clientes.Add(aux);

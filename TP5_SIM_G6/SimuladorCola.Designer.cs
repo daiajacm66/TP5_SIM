@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SimuladorCola));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.nudHasta = new System.Windows.Forms.NumericUpDown();
+            this.label15 = new System.Windows.Forms.Label();
             this.nudCantFilas = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
             this.nudDesde = new System.Windows.Forms.NumericUpDown();
@@ -57,41 +59,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.nudIndiceLlegadas = new System.Windows.Forms.NumericUpDown();
             this.label6 = new System.Windows.Forms.Label();
-            this.dgvSimulacion = new System.Windows.Forms.DataGridView();
-            this.evento = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.reloj = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RNDLlegadas = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tiempoLlegadas = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tiempoEntreLlegadas = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.secOcupados = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tiempoOcupacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ACTiempoOcupa = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RNDPermanencia = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tiempoPermanencia = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sec1Estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.S1finOcupacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.S2Estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.S2finOcupacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.S3estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.S3finOcupacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.S4Estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.S4finOcupacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.S5Estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.S5finOcupacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.S6Estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.S6finOcupacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.S7Estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.S7FinOcupacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.S8Estado = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.S8FinOcupacion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.RNDTipoAuto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tipoAuto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.estadoCobro = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.tiempoCobro = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.finCobro = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.monto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.montoAC = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.colaCobro = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnLimpiar = new System.Windows.Forms.Button();
             this.btnIniciar = new System.Windows.Forms.Button();
             this.pgbSimulacion = new System.Windows.Forms.ProgressBar();
@@ -100,8 +67,6 @@
             this.txtRecaudacionTotal = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.nudHasta = new System.Windows.Forms.NumericUpDown();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.dataGridViewTextBoxColumn1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -137,7 +102,9 @@
             this.dataGridViewTextBoxColumn32 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn33 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dataGridViewTextBoxColumn34 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgvSimulacion = new System.Windows.Forms.DataGridView();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudHasta)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudCantFilas)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDesde)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudX)).BeginInit();
@@ -153,10 +120,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudProbPequeño)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudTiempoCobro)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudIndiceLlegadas)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvSimulacion)).BeginInit();
             this.groupBox5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudHasta)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvSimulacion)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -178,6 +144,34 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Parámetros simulación";
+            // 
+            // nudHasta
+            // 
+            this.nudHasta.Location = new System.Drawing.Point(253, 104);
+            this.nudHasta.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+            this.nudHasta.Name = "nudHasta";
+            this.nudHasta.Size = new System.Drawing.Size(82, 24);
+            this.nudHasta.TabIndex = 7;
+            this.nudHasta.Value = new decimal(new int[] {
+            500,
+            0,
+            0,
+            0});
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label15.Location = new System.Drawing.Point(15, 106);
+            this.label15.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(156, 18);
+            this.label15.TabIndex = 6;
+            this.label15.Text = "Hasta la simulación";
             // 
             // nudCantFilas
             // 
@@ -573,328 +567,6 @@
             this.label6.TabIndex = 0;
             this.label6.Text = "Índice de llegadas";
             // 
-            // dgvSimulacion
-            // 
-            this.dgvSimulacion.AllowUserToAddRows = false;
-            this.dgvSimulacion.AllowUserToDeleteRows = false;
-            this.dgvSimulacion.BackgroundColor = System.Drawing.Color.DarkGray;
-            this.dgvSimulacion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvSimulacion.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.evento,
-            this.reloj,
-            this.RNDLlegadas,
-            this.tiempoLlegadas,
-            this.tiempoEntreLlegadas,
-            this.secOcupados,
-            this.tiempoOcupacion,
-            this.ACTiempoOcupa,
-            this.RNDPermanencia,
-            this.tiempoPermanencia,
-            this.sec1Estado,
-            this.S1finOcupacion,
-            this.S2Estado,
-            this.S2finOcupacion,
-            this.S3estado,
-            this.S3finOcupacion,
-            this.S4Estado,
-            this.S4finOcupacion,
-            this.S5Estado,
-            this.S5finOcupacion,
-            this.S6Estado,
-            this.S6finOcupacion,
-            this.S7Estado,
-            this.S7FinOcupacion,
-            this.S8Estado,
-            this.S8FinOcupacion,
-            this.RNDTipoAuto,
-            this.tipoAuto,
-            this.estadoCobro,
-            this.tiempoCobro,
-            this.finCobro,
-            this.monto,
-            this.montoAC,
-            this.colaCobro});
-            this.dgvSimulacion.Location = new System.Drawing.Point(9, 215);
-            this.dgvSimulacion.Margin = new System.Windows.Forms.Padding(2);
-            this.dgvSimulacion.Name = "dgvSimulacion";
-            this.dgvSimulacion.ReadOnly = true;
-            this.dgvSimulacion.RowHeadersWidth = 51;
-            this.dgvSimulacion.RowTemplate.Height = 24;
-            this.dgvSimulacion.Size = new System.Drawing.Size(1407, 290);
-            this.dgvSimulacion.TabIndex = 7;
-            // 
-            // evento
-            // 
-            this.evento.HeaderText = "Evento";
-            this.evento.MinimumWidth = 6;
-            this.evento.Name = "evento";
-            this.evento.ReadOnly = true;
-            this.evento.Width = 75;
-            // 
-            // reloj
-            // 
-            this.reloj.HeaderText = "Reloj (Minutos)";
-            this.reloj.MinimumWidth = 6;
-            this.reloj.Name = "reloj";
-            this.reloj.ReadOnly = true;
-            this.reloj.Width = 85;
-            // 
-            // RNDLlegadas
-            // 
-            this.RNDLlegadas.HeaderText = "RND Llegadas";
-            this.RNDLlegadas.MinimumWidth = 6;
-            this.RNDLlegadas.Name = "RNDLlegadas";
-            this.RNDLlegadas.ReadOnly = true;
-            this.RNDLlegadas.Width = 90;
-            // 
-            // tiempoLlegadas
-            // 
-            this.tiempoLlegadas.HeaderText = "Tiempo";
-            this.tiempoLlegadas.MinimumWidth = 6;
-            this.tiempoLlegadas.Name = "tiempoLlegadas";
-            this.tiempoLlegadas.ReadOnly = true;
-            this.tiempoLlegadas.Width = 70;
-            // 
-            // tiempoEntreLlegadas
-            // 
-            this.tiempoEntreLlegadas.HeaderText = "Tiempo entre llegadas";
-            this.tiempoEntreLlegadas.MinimumWidth = 6;
-            this.tiempoEntreLlegadas.Name = "tiempoEntreLlegadas";
-            this.tiempoEntreLlegadas.ReadOnly = true;
-            this.tiempoEntreLlegadas.Width = 90;
-            // 
-            // secOcupados
-            // 
-            this.secOcupados.HeaderText = "Sectores ocupados";
-            this.secOcupados.MinimumWidth = 6;
-            this.secOcupados.Name = "secOcupados";
-            this.secOcupados.ReadOnly = true;
-            this.secOcupados.Width = 90;
-            // 
-            // tiempoOcupacion
-            // 
-            this.tiempoOcupacion.HeaderText = "Tiempo ocupación";
-            this.tiempoOcupacion.MinimumWidth = 6;
-            this.tiempoOcupacion.Name = "tiempoOcupacion";
-            this.tiempoOcupacion.ReadOnly = true;
-            this.tiempoOcupacion.Width = 90;
-            // 
-            // ACTiempoOcupa
-            // 
-            this.ACTiempoOcupa.HeaderText = "AC tiempo ocupación";
-            this.ACTiempoOcupa.MinimumWidth = 6;
-            this.ACTiempoOcupa.Name = "ACTiempoOcupa";
-            this.ACTiempoOcupa.ReadOnly = true;
-            this.ACTiempoOcupa.Width = 110;
-            // 
-            // RNDPermanencia
-            // 
-            this.RNDPermanencia.HeaderText = "RND tiempo permanencia";
-            this.RNDPermanencia.MinimumWidth = 6;
-            this.RNDPermanencia.Name = "RNDPermanencia";
-            this.RNDPermanencia.ReadOnly = true;
-            this.RNDPermanencia.Width = 110;
-            // 
-            // tiempoPermanencia
-            // 
-            this.tiempoPermanencia.HeaderText = "Tiempo permanencia";
-            this.tiempoPermanencia.MinimumWidth = 6;
-            this.tiempoPermanencia.Name = "tiempoPermanencia";
-            this.tiempoPermanencia.ReadOnly = true;
-            this.tiempoPermanencia.Width = 115;
-            // 
-            // sec1Estado
-            // 
-            this.sec1Estado.HeaderText = "Estado S1";
-            this.sec1Estado.MinimumWidth = 6;
-            this.sec1Estado.Name = "sec1Estado";
-            this.sec1Estado.ReadOnly = true;
-            this.sec1Estado.Width = 80;
-            // 
-            // S1finOcupacion
-            // 
-            this.S1finOcupacion.HeaderText = "Fin ocupación S1";
-            this.S1finOcupacion.MinimumWidth = 6;
-            this.S1finOcupacion.Name = "S1finOcupacion";
-            this.S1finOcupacion.ReadOnly = true;
-            this.S1finOcupacion.Width = 125;
-            // 
-            // S2Estado
-            // 
-            this.S2Estado.HeaderText = "Estado S2";
-            this.S2Estado.MinimumWidth = 6;
-            this.S2Estado.Name = "S2Estado";
-            this.S2Estado.ReadOnly = true;
-            this.S2Estado.Width = 80;
-            // 
-            // S2finOcupacion
-            // 
-            this.S2finOcupacion.HeaderText = "Fin ocupación S2";
-            this.S2finOcupacion.MinimumWidth = 6;
-            this.S2finOcupacion.Name = "S2finOcupacion";
-            this.S2finOcupacion.ReadOnly = true;
-            this.S2finOcupacion.Width = 125;
-            // 
-            // S3estado
-            // 
-            this.S3estado.HeaderText = "Estado S3";
-            this.S3estado.MinimumWidth = 6;
-            this.S3estado.Name = "S3estado";
-            this.S3estado.ReadOnly = true;
-            this.S3estado.Width = 80;
-            // 
-            // S3finOcupacion
-            // 
-            this.S3finOcupacion.HeaderText = "Fin ocupación S3";
-            this.S3finOcupacion.MinimumWidth = 6;
-            this.S3finOcupacion.Name = "S3finOcupacion";
-            this.S3finOcupacion.ReadOnly = true;
-            this.S3finOcupacion.Width = 125;
-            // 
-            // S4Estado
-            // 
-            this.S4Estado.HeaderText = "Estado S4";
-            this.S4Estado.MinimumWidth = 6;
-            this.S4Estado.Name = "S4Estado";
-            this.S4Estado.ReadOnly = true;
-            this.S4Estado.Width = 80;
-            // 
-            // S4finOcupacion
-            // 
-            this.S4finOcupacion.HeaderText = "Fin ocupación S4";
-            this.S4finOcupacion.MinimumWidth = 6;
-            this.S4finOcupacion.Name = "S4finOcupacion";
-            this.S4finOcupacion.ReadOnly = true;
-            this.S4finOcupacion.Width = 125;
-            // 
-            // S5Estado
-            // 
-            this.S5Estado.HeaderText = "Estado S5";
-            this.S5Estado.MinimumWidth = 6;
-            this.S5Estado.Name = "S5Estado";
-            this.S5Estado.ReadOnly = true;
-            this.S5Estado.Width = 80;
-            // 
-            // S5finOcupacion
-            // 
-            this.S5finOcupacion.HeaderText = "Fin ocupación S5";
-            this.S5finOcupacion.MinimumWidth = 6;
-            this.S5finOcupacion.Name = "S5finOcupacion";
-            this.S5finOcupacion.ReadOnly = true;
-            this.S5finOcupacion.Width = 125;
-            // 
-            // S6Estado
-            // 
-            this.S6Estado.HeaderText = "Estado S6";
-            this.S6Estado.MinimumWidth = 6;
-            this.S6Estado.Name = "S6Estado";
-            this.S6Estado.ReadOnly = true;
-            this.S6Estado.Width = 80;
-            // 
-            // S6finOcupacion
-            // 
-            this.S6finOcupacion.HeaderText = "Fin ocupación S6";
-            this.S6finOcupacion.MinimumWidth = 6;
-            this.S6finOcupacion.Name = "S6finOcupacion";
-            this.S6finOcupacion.ReadOnly = true;
-            this.S6finOcupacion.Width = 125;
-            // 
-            // S7Estado
-            // 
-            this.S7Estado.HeaderText = "Estado S7";
-            this.S7Estado.MinimumWidth = 6;
-            this.S7Estado.Name = "S7Estado";
-            this.S7Estado.ReadOnly = true;
-            this.S7Estado.Width = 80;
-            // 
-            // S7FinOcupacion
-            // 
-            this.S7FinOcupacion.HeaderText = "Fin ocupación S7";
-            this.S7FinOcupacion.MinimumWidth = 6;
-            this.S7FinOcupacion.Name = "S7FinOcupacion";
-            this.S7FinOcupacion.ReadOnly = true;
-            this.S7FinOcupacion.Width = 125;
-            // 
-            // S8Estado
-            // 
-            this.S8Estado.HeaderText = "Estado S8";
-            this.S8Estado.MinimumWidth = 6;
-            this.S8Estado.Name = "S8Estado";
-            this.S8Estado.ReadOnly = true;
-            this.S8Estado.Width = 80;
-            // 
-            // S8FinOcupacion
-            // 
-            this.S8FinOcupacion.HeaderText = "Fin ocupación S8";
-            this.S8FinOcupacion.MinimumWidth = 6;
-            this.S8FinOcupacion.Name = "S8FinOcupacion";
-            this.S8FinOcupacion.ReadOnly = true;
-            this.S8FinOcupacion.Width = 125;
-            // 
-            // RNDTipoAuto
-            // 
-            this.RNDTipoAuto.HeaderText = "RND tipo auto";
-            this.RNDTipoAuto.MinimumWidth = 6;
-            this.RNDTipoAuto.Name = "RNDTipoAuto";
-            this.RNDTipoAuto.ReadOnly = true;
-            this.RNDTipoAuto.Width = 125;
-            // 
-            // tipoAuto
-            // 
-            this.tipoAuto.HeaderText = "Tipo auto";
-            this.tipoAuto.MinimumWidth = 6;
-            this.tipoAuto.Name = "tipoAuto";
-            this.tipoAuto.ReadOnly = true;
-            this.tipoAuto.Width = 65;
-            // 
-            // estadoCobro
-            // 
-            this.estadoCobro.HeaderText = "Estado cobro";
-            this.estadoCobro.MinimumWidth = 6;
-            this.estadoCobro.Name = "estadoCobro";
-            this.estadoCobro.ReadOnly = true;
-            this.estadoCobro.Width = 65;
-            // 
-            // tiempoCobro
-            // 
-            this.tiempoCobro.HeaderText = "Tiempo cobro";
-            this.tiempoCobro.MinimumWidth = 6;
-            this.tiempoCobro.Name = "tiempoCobro";
-            this.tiempoCobro.ReadOnly = true;
-            this.tiempoCobro.Width = 75;
-            // 
-            // finCobro
-            // 
-            this.finCobro.HeaderText = "Fin cobro";
-            this.finCobro.MinimumWidth = 6;
-            this.finCobro.Name = "finCobro";
-            this.finCobro.ReadOnly = true;
-            this.finCobro.Width = 65;
-            // 
-            // monto
-            // 
-            this.monto.HeaderText = "Monto";
-            this.monto.MinimumWidth = 6;
-            this.monto.Name = "monto";
-            this.monto.ReadOnly = true;
-            this.monto.Width = 65;
-            // 
-            // montoAC
-            // 
-            this.montoAC.HeaderText = "AC monto";
-            this.montoAC.MinimumWidth = 6;
-            this.montoAC.Name = "montoAC";
-            this.montoAC.ReadOnly = true;
-            this.montoAC.Width = 75;
-            // 
-            // colaCobro
-            // 
-            this.colaCobro.HeaderText = "Cola cobro";
-            this.colaCobro.MinimumWidth = 6;
-            this.colaCobro.Name = "colaCobro";
-            this.colaCobro.ReadOnly = true;
-            this.colaCobro.Width = 75;
-            // 
             // btnLimpiar
             // 
             this.btnLimpiar.BackColor = System.Drawing.Color.Gray;
@@ -990,34 +662,6 @@
             this.label13.Size = new System.Drawing.Size(188, 18);
             this.label13.TabIndex = 6;
             this.label13.Text = "Recaudación total playa";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(15, 106);
-            this.label15.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(156, 18);
-            this.label15.TabIndex = 6;
-            this.label15.Text = "Hasta la simulación";
-            // 
-            // nudHasta
-            // 
-            this.nudHasta.Location = new System.Drawing.Point(253, 104);
-            this.nudHasta.Maximum = new decimal(new int[] {
-            1000000,
-            0,
-            0,
-            0});
-            this.nudHasta.Name = "nudHasta";
-            this.nudHasta.Size = new System.Drawing.Size(82, 24);
-            this.nudHasta.TabIndex = 7;
-            this.nudHasta.Value = new decimal(new int[] {
-            500,
-            0,
-            0,
-            0});
             // 
             // dataGridView1
             // 
@@ -1341,18 +985,28 @@
             this.dataGridViewTextBoxColumn34.ReadOnly = true;
             this.dataGridViewTextBoxColumn34.Width = 75;
             // 
+            // dgvSimulacion
+            // 
+            this.dgvSimulacion.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvSimulacion.Location = new System.Drawing.Point(9, 216);
+            this.dgvSimulacion.Name = "dgvSimulacion";
+            this.dgvSimulacion.RowHeadersWidth = 51;
+            this.dgvSimulacion.RowTemplate.Height = 24;
+            this.dgvSimulacion.Size = new System.Drawing.Size(1341, 235);
+            this.dgvSimulacion.TabIndex = 13;
+            // 
             // SimuladorCola
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.ClientSize = new System.Drawing.Size(1437, 764);
+            this.Controls.Add(this.dgvSimulacion);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.pgbSimulacion);
             this.Controls.Add(this.btnIniciar);
             this.Controls.Add(this.btnLimpiar);
-            this.Controls.Add(this.dgvSimulacion);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -1365,6 +1019,7 @@
             this.Text = "Simulador sistema de colas";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudHasta)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudCantFilas)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudDesde)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudX)).EndInit();
@@ -1383,11 +1038,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.nudProbPequeño)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudTiempoCobro)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudIndiceLlegadas)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvSimulacion)).EndInit();
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nudHasta)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvSimulacion)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1422,7 +1076,6 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.NumericUpDown nudProbPequeño;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.DataGridView dgvSimulacion;
         private System.Windows.Forms.Button btnLimpiar;
         private System.Windows.Forms.Button btnIniciar;
         private System.Windows.Forms.ProgressBar pgbSimulacion;
@@ -1431,40 +1084,6 @@
         private System.Windows.Forms.TextBox txtRecaudacionTotal;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.DataGridViewTextBoxColumn evento;
-        private System.Windows.Forms.DataGridViewTextBoxColumn reloj;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RNDLlegadas;
-        private System.Windows.Forms.DataGridViewTextBoxColumn tiempoLlegadas;
-        private System.Windows.Forms.DataGridViewTextBoxColumn tiempoEntreLlegadas;
-        private System.Windows.Forms.DataGridViewTextBoxColumn secOcupados;
-        private System.Windows.Forms.DataGridViewTextBoxColumn tiempoOcupacion;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ACTiempoOcupa;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RNDPermanencia;
-        private System.Windows.Forms.DataGridViewTextBoxColumn tiempoPermanencia;
-        private System.Windows.Forms.DataGridViewTextBoxColumn sec1Estado;
-        private System.Windows.Forms.DataGridViewTextBoxColumn S1finOcupacion;
-        private System.Windows.Forms.DataGridViewTextBoxColumn S2Estado;
-        private System.Windows.Forms.DataGridViewTextBoxColumn S2finOcupacion;
-        private System.Windows.Forms.DataGridViewTextBoxColumn S3estado;
-        private System.Windows.Forms.DataGridViewTextBoxColumn S3finOcupacion;
-        private System.Windows.Forms.DataGridViewTextBoxColumn S4Estado;
-        private System.Windows.Forms.DataGridViewTextBoxColumn S4finOcupacion;
-        private System.Windows.Forms.DataGridViewTextBoxColumn S5Estado;
-        private System.Windows.Forms.DataGridViewTextBoxColumn S5finOcupacion;
-        private System.Windows.Forms.DataGridViewTextBoxColumn S6Estado;
-        private System.Windows.Forms.DataGridViewTextBoxColumn S6finOcupacion;
-        private System.Windows.Forms.DataGridViewTextBoxColumn S7Estado;
-        private System.Windows.Forms.DataGridViewTextBoxColumn S7FinOcupacion;
-        private System.Windows.Forms.DataGridViewTextBoxColumn S8Estado;
-        private System.Windows.Forms.DataGridViewTextBoxColumn S8FinOcupacion;
-        private System.Windows.Forms.DataGridViewTextBoxColumn RNDTipoAuto;
-        private System.Windows.Forms.DataGridViewTextBoxColumn tipoAuto;
-        private System.Windows.Forms.DataGridViewTextBoxColumn estadoCobro;
-        private System.Windows.Forms.DataGridViewTextBoxColumn tiempoCobro;
-        private System.Windows.Forms.DataGridViewTextBoxColumn finCobro;
-        private System.Windows.Forms.DataGridViewTextBoxColumn monto;
-        private System.Windows.Forms.DataGridViewTextBoxColumn montoAC;
-        private System.Windows.Forms.DataGridViewTextBoxColumn colaCobro;
         private System.Windows.Forms.NumericUpDown nudHasta;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.DataGridView dataGridView1;
@@ -1502,5 +1121,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn32;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn33;
         private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn34;
+        private System.Windows.Forms.DataGridView dgvSimulacion;
     }
 }

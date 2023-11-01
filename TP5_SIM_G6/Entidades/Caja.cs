@@ -31,6 +31,8 @@ namespace TP5_SIM_G6.Entidades
             this.conteoCola = cola.Count;
         }
 
+        
+
         public void agregarCola(Automovil automovil)
         {
             this.cola.Add(automovil);
